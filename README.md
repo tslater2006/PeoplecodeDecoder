@@ -2,7 +2,7 @@
 C# library for decoding peoplecode bytecode into a textual representation.
 
 #Usage
- In order to use this library you must have the binary peoplecode bytecode (stored in PSPCMPROG) as well as a JSON representation of the references as stored in PCPCMNAME.
+ In order to use this library you must have the binary peoplecode bytecode (stored in PSPCMPROG) as well as a JSON representation of the references as stored in PSPCMNAME.
 
  References should look like this
 ```json
