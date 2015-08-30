@@ -10,14 +10,14 @@ namespace PeopleCodeDecoder
 {
     public class Parser
     {
-        public static PeopleCode.ProgramElement ParsePPC(string filename, string refsFile)
+        public static PeopleCode.ProgramElement ParsePPC(string filename, string refsFile, ParseOptions opts = null)
         {
             byte[] ppcBytes = File.ReadAllBytes(filename);
             string refsText = File.ReadAllText(refsFile);
 
             JArray refs = JArray.Parse(refsText);
-
             ParseState state = new ParseState();
+            state.Options = opts;
             state.References = refs;
 
             MemoryStream ms = new MemoryStream(ppcBytes);

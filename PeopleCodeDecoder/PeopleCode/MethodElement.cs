@@ -9,7 +9,7 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class MethodElement : Element
     {
-        String MethodName;
+        public String MethodName;
         List<Element> Body = new List<Element>();
 
         public override void Parse(MemoryStream ms, ParseState state)

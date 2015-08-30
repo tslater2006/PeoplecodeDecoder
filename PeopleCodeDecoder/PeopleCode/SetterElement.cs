@@ -9,7 +9,7 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class SetterElement : Element
     {
-        string PropertyName;
+        public string PropertyName;
         List<Element> Body = new List<Element>();
         public override void Parse(MemoryStream ms, ParseState state)
         {

@@ -9,7 +9,7 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class MethodDeclarationElement : Element
     {
-        String MethodName;
+        public String MethodName;
         List<Parameter> Params = new List<Parameter>();
         String ReturnType;
 

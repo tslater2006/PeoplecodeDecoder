@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParseOptions.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="PeopleCode\BooleanLogicElement.cs" />
     <Compile Include="PeopleCode\CatchElement.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="PeopleCode\NewLineElement.cs" />
     <Compile Include="PeopleCode\NumberElement.cs" />
     <Compile Include="PeopleCode\OperatorElement.cs" />
-    <Compile Include="PeopleCode\ParseState.cs" />
+    <Compile Include="ParseState.cs" />
     <Compile Include="PeopleCode\ProgramElement.cs" />
     <Compile Include="PeopleCode\Element.cs" />
     <Compile Include="PeopleCode\PureStringElement.cs" />

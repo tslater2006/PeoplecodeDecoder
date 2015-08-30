@@ -15,5 +15,7 @@ namespace PeopleCodeDecoder.PeopleCode
         public StringBuilder Output = new StringBuilder();
         public bool InClassDefn = false;
         public int AlternateBreak;
+
+        public ParseOptions Options;
     }
 }
