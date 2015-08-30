@@ -12,7 +12,9 @@ namespace PeopleCodeDecoder.PeopleCode
         String ClassName;
         List<Element> Public = new List<Element>();
         List<Element> Private = new List<Element>();
+        List<Element> Protected = new List<Element>();
         List<Element> Body = new List<Element>();
+
         public override void Parse(MemoryStream ms, ParseState state)
         {
             Element stringElement = new PureStringElement();
@@ -24,13 +26,23 @@ namespace PeopleCodeDecoder.PeopleCode
 
             byte nextByte = Peek(ms);
 
-            while (nextByte != 91 && nextByte != 97)
+            while (nextByte != 91 && nextByte != 97 && nextByte != 115)
             {
                 Element nextElement = Element.GetNextElement(ms, state,IndentLevel);
                 Public.Add(nextElement);
                 nextByte = Peek(ms);
             }
-
+            if (nextByte == 115) /* has protected section */
+            {
+                /* eat protected byte */
+                ms.ReadByte();
+                while (nextByte != 91 && nextByte != 97)
+                {
+                    Element nextElement = Element.GetNextElement(ms, state, IndentLevel);
+                    Protected.Add(nextElement);
+                    nextByte = Peek(ms);
+                }
+            }
             if (nextByte == 97) /* has private section */
             {
                 /* eat private byte */

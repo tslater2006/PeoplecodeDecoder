@@ -7,35 +7,32 @@ using System.Threading.Tasks;
 
 namespace PeopleCodeDecoder.PeopleCode
 {
-    public class MethodElement : Element
+    public class SetterElement : Element
     {
-        String MethodName;
+        string PropertyName;
         List<Element> Body = new List<Element>();
-
         public override void Parse(MemoryStream ms, ParseState state)
         {
-            /* eat the method byte */
+            /* eat the Set byte */
             ms.ReadByte();
 
-            /* eat the 65 byte ? */
+            /* eat the space */
             ms.ReadByte();
 
-            Element stringElement = new PureStringElement();
-            stringElement.Parse(ms, state);
-            MethodName = stringElement.Value;
+            PropertyName = Element.GetNextElement(ms, state, 0).Value;
 
-            while(Peek(ms) != 100)
+            while (Peek(ms) != 107)
             {
-                state.AlternateBreak = 100;
-                Element nextElement = Element.GetNextElement(ms, state, IndentLevel,true);
+                Element nextElement = Element.GetNextElement(ms, state, IndentLevel, true);
                 Body.Add(nextElement);
             }
 
-            /* eat the end method */
+            /* eat the end set */
             ms.ReadByte();
 
             /* eat the semicolon */
             ms.ReadByte();
+
         }
     }
 }

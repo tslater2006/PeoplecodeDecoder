@@ -37,6 +37,12 @@ namespace PeopleCodeDecoder.PeopleCode
                 Params.Add(new Parameter() { Name = paramName, Type = paramType });
 
                 nextByte = Peek(ms);
+                if (nextByte == 3)
+                {
+                    /* eat the comma */
+                    ms.ReadByte();
+                    nextByte = Peek(ms);
+                }
             }
 
             /* eat the close paren */

@@ -10,7 +10,7 @@ namespace PeopleCodeDecoder.PeopleCode
     public class VariableDeclarationElement : Element
     {
         DeclareType declareType;
-        string VariableType;
+        string VariableType = "";
         List<Element> Declaration = new List<Element>();
 
         public override string ToString()
@@ -31,7 +31,9 @@ namespace PeopleCodeDecoder.PeopleCode
                 case DeclareType.INSTANCE:
                     sb.Append("instance ");
                     break;
-
+                case DeclareType.CONSTANT:
+                    sb.Append("Constant ");
+                    break;
             }
 
             sb.Append(VariableType).Append(" ");
@@ -62,6 +64,9 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 84:
                     declareType = DeclareType.COMPONENT;
                     break;
+                case 86:
+                    declareType = DeclareType.CONSTANT;
+                    break;
                 case 98:
                     declareType = DeclareType.INSTANCE;
                     break;
@@ -69,14 +74,16 @@ namespace PeopleCodeDecoder.PeopleCode
 
             byte nextByte = Peek(ms);
             Element stringElement = new PureStringElement();
-            while(nextByte != 1)
+            if (declareType != DeclareType.CONSTANT)
             {
-                stringElement.Parse(ms, state);
-                VariableType += stringElement.Value + " ";
-                nextByte = Peek(ms);
+                while (nextByte != 1)
+                {
+                    stringElement.Parse(ms, state);
+                    VariableType += stringElement.Value + " ";
+                    nextByte = Peek(ms);
+                }
+                VariableType = VariableType.Trim();
             }
-            VariableType = VariableType.Trim();
-
             while (nextByte != 21) /* semicolon */
             {
                 Declaration.Add(GetNextElement(ms, state, 0));
@@ -89,6 +96,6 @@ namespace PeopleCodeDecoder.PeopleCode
 
     enum DeclareType
     {
-        LOCAL, COMPONENT, GLOBAL, INSTANCE
+        LOCAL, COMPONENT, GLOBAL, INSTANCE, CONSTANT
     }
 }

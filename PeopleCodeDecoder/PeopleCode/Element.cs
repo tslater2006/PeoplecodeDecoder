@@ -126,6 +126,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 68:
                 case 69:
                 case 84:
+                case 86:
                 case 98:
                     nextElement = new VariableDeclarationElement();
                     break;
@@ -135,6 +136,15 @@ namespace PeopleCodeDecoder.PeopleCode
                     break;
                 case 90:
                     nextElement = new ClassElement();
+                    break;
+                case 94:
+                    nextElement = new PropertyElement();
+                    break;
+                case 95:
+                    nextElement = new GetterElement();
+                    break;
+                case 73:
+                    nextElement = new SetterElement();
                     break;
                 case 99:
                     if (state.InClassDefn)

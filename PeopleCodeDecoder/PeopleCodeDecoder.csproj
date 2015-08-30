@@ -57,10 +57,13 @@
     <Compile Include="PeopleCode\EvaluateElement.cs" />
     <Compile Include="PeopleCode\ForElement.cs" />
     <Compile Include="PeopleCode\FunctionElement.cs" />
+    <Compile Include="PeopleCode\GetterElement.cs" />
     <Compile Include="PeopleCode\IfElement.cs" />
     <Compile Include="PeopleCode\MethodElement.cs" />
+    <Compile Include="PeopleCode\PropertyElement.cs" />
     <Compile Include="PeopleCode\ReferenceElement.cs" />
     <Compile Include="PeopleCode\ReturnElement.cs" />
+    <Compile Include="PeopleCode\SetterElement.cs" />
     <Compile Include="PeopleCode\TryElement.cs" />
     <Compile Include="PeopleCode\VariableDeclarationElement.cs" />
     <Compile Include="PeopleCode\MethodDeclarationElement.cs" />
@@ -76,7 +79,6 @@
     <Compile Include="PeopleCode\WhenElement.cs" />
     <Compile Include="PeopleCode\WhileElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
