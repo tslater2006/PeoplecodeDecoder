@@ -60,6 +60,7 @@
     <Compile Include="PeopleCode\FunctionElement.cs" />
     <Compile Include="PeopleCode\GetterElement.cs" />
     <Compile Include="PeopleCode\IfElement.cs" />
+    <Compile Include="PeopleCode\ImportElement.cs" />
     <Compile Include="PeopleCode\MethodElement.cs" />
     <Compile Include="PeopleCode\PropertyElement.cs" />
     <Compile Include="PeopleCode\ReferenceElement.cs" />

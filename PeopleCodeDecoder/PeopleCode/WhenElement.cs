@@ -10,6 +10,7 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class WhenElement : Element
     {
+        bool WhenOther = false;
         List<Element> Condition;
         List<Element> Body = new List<Element>();
         
@@ -24,7 +25,8 @@ namespace PeopleCodeDecoder.PeopleCode
                 byte nextByte = Peek(ms);
                 while (nextByte != 45) /* new line */
                 {
-                    Condition.Add(Element.GetNextElement(ms, state, IndentLevel,true));
+                    state.AlternateBreak = 45;
+                    Condition.Add(Element.GetNextElement(ms, state, 0,true));
                     nextByte = Peek(ms);
                 }
 
@@ -35,8 +37,10 @@ namespace PeopleCodeDecoder.PeopleCode
 
                 while (nextByte != 46)
                 {
+                    state.AlternateBreak = 46;
                     Element nextElement = Element.GetNextElement(ms, state, IndentLevel,true);
                     Body.Add(nextElement);
+                    nextByte = Peek(ms);
                 }
 
                 /* eat the break */
@@ -46,9 +50,22 @@ namespace PeopleCodeDecoder.PeopleCode
                 ms.ReadByte();
             } else if (whenType == 62)
             {
-                /* need to figure out */
-                Debugger.Break();
-                
+                WhenOther = true;
+
+                /* eat the when-other */
+
+                while (Peek(ms) != 46)
+                {
+                    state.AlternateBreak = 46;
+                    Element nextElement = Element.GetNextElement(ms, state, IndentLevel, true);
+                    Body.Add(nextElement);
+                }
+
+                /* eat the break */
+                ms.ReadByte();
+
+                /* eat the semicolon */
+                ms.ReadByte();
             }
         }
     }

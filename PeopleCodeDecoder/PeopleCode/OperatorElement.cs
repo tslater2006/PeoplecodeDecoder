@@ -114,6 +114,15 @@ namespace PeopleCodeDecoder.PeopleCode
                     Value = "]";
                     Spacing = ElementSpacing.NONE;
                     break;
+                case 87:
+                    Value = ":";
+                    Spacing = ElementSpacing.NONE;
+                    break;
+                case 105:
+                    Value = "create";
+                    Spacing = ElementSpacing.AFTER;
+                    break;
+                        
             }
             
         }

@@ -9,16 +9,21 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class EvaluateElement : Element
     {
-        String Variable;
+        String Variable = "";
         List<WhenElement> Cases = new List<WhenElement>();
 
         public override void Parse(MemoryStream ms, ParseState state)
         {
             /* eat the "Evaluate" byte */
             ms.ReadByte();
-            Element stringElement = new PureStringElement();
-            stringElement.Parse(ms, state);
-            Variable = stringElement.Value;
+            
+
+            while (Peek(ms) != 61)
+            {
+                
+                Variable += Element.GetNextElement(ms, state, 0).ToString();
+            }
+
 
             byte nextByte = Peek(ms);
 

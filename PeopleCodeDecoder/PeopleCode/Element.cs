@@ -70,6 +70,8 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 75:
                 case 76:
                 case 77:
+                case 87:
+                case 105:
                     isPrimitive = true;
                     nextElement = new OperatorElement();
                     break;
@@ -94,6 +96,7 @@ namespace PeopleCodeDecoder.PeopleCode
                     nextElement = new ReferenceElement();
                     break;
                 case 36:
+                case 78:
                 case 85:
                 case 109:
                     nextElement = new CommentElement();
@@ -133,6 +136,9 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 80:
                     isPrimitive = true;
                     nextElement = new NumberElement();
+                    break;
+                case 88:
+                    nextElement = new ImportElement();
                     break;
                 case 90:
                     nextElement = new ClassElement();

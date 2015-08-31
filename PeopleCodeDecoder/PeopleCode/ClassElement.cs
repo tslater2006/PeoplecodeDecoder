@@ -10,6 +10,7 @@ namespace PeopleCodeDecoder.PeopleCode
     public class ClassElement : Element
     {
         String ClassName;
+        String Implements = "";
         List<Element> Public = new List<Element>();
         List<Element> Private = new List<Element>();
         List<Element> Protected = new List<Element>();
@@ -25,6 +26,20 @@ namespace PeopleCodeDecoder.PeopleCode
             ClassName = stringElement.Value;
 
             byte nextByte = Peek(ms);
+
+            if (nextByte == 114) /* implements */
+            {
+                /* eat implements byte */
+                ms.ReadByte();
+                do
+                {
+                    if (Peek(ms) == 87)
+                    {
+                        Implements += Element.GetNextElement(ms, state, 0).Value;
+                    }
+                    Implements += Element.GetNextElement(ms, state, 0).Value;
+                } while (Peek(ms) == 87);
+            }
 
             while (nextByte != 91 && nextByte != 97 && nextByte != 115)
             {

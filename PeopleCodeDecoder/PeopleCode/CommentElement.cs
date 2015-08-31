@@ -28,7 +28,7 @@ namespace PeopleCodeDecoder.PeopleCode
             /* eat comment marker */
             byte commentType = (byte) ms.ReadByte();
 
-            if (commentType == 36)
+            if (commentType == 36 || commentType == 78)
             {
                 Type = CommentType.SLASH_STAR;
             } else if (commentType == 85)

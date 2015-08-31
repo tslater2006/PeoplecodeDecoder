@@ -17,7 +17,13 @@ namespace PeopleCodeDecoder
 
             JArray refs = JArray.Parse(refsText);
             ParseState state = new ParseState();
-            state.Options = opts;
+            if (opts != null)
+            {
+                state.Options = opts;
+            } else
+            {
+                state.Options = new ParseOptions();
+            }
             state.References = refs;
 
             MemoryStream ms = new MemoryStream(ppcBytes);
