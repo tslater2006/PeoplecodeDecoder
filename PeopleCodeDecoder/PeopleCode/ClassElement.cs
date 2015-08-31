@@ -176,7 +176,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 {
                     if (Private[x] is MethodDeclarationElement)
                     {
-                        methods.Add((MethodDeclarationElement)Public[x]);
+                        methods.Add((MethodDeclarationElement)Private[x]);
                         indexes.Add(x);
                     }
                 }
