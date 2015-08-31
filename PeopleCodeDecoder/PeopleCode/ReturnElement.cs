@@ -13,11 +13,20 @@ namespace PeopleCodeDecoder.PeopleCode
         {
             /* eat the return byte */
             ms.ReadByte();
+
+            Value = "";
+
+            while (Peek(ms) != 21)
+            {
+                var elem = Element.GetNextElement(ms, state, -1);
+                Value += elem.ToString();
+            }
+
         }
 
         public override string ToString()
         {
-            return "Return ";
+            return "Return " + Value;
         }
     }
 }

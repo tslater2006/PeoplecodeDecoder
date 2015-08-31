@@ -15,6 +15,19 @@ namespace PeopleCodeDecoder.PeopleCode
         public override string ToString()
         {
             //TODO: Implement
+            StringBuilder sb = new StringBuilder();
+            DoPadding(sb);
+            sb.Append("method ").Append(MethodName.Trim()).Append("\r\n");
+
+            foreach (Element e in Body)
+            {
+                sb.Append(e);
+            }
+
+            DoPadding(sb);
+            sb.Append("end-method;");
+
+            return sb.ToString();
             throw new NotImplementedException();
         }
 
@@ -30,7 +43,10 @@ namespace PeopleCodeDecoder.PeopleCode
             stringElement.Parse(ms, state);
             MethodName = stringElement.Value;
 
-            while(Peek(ms) != 100)
+            /* eat new line */
+            Element.GetNextElement(ms, state, IndentLevel, false);
+
+            while (Peek(ms) != 100)
             {
                 state.AlternateBreak = 100;
                 Element nextElement = Element.GetNextElement(ms, state, IndentLevel,true);

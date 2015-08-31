@@ -72,10 +72,11 @@ namespace PeopleCodeDecoder.PeopleCode
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            DoPadding(sb);
             sb.Append("method ").Append(MethodName).Append("(");
             foreach( var m in Params)
             {
-                sb.Append(m.Name).Append(" as ").Append(m.Type).Append(", ");
+                sb.Append(m.Name).Append(" As ").Append(m.Type).Append(", ");
             }
             if (Params.Count > 0)
             {
@@ -88,7 +89,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 sb.Append(" Returns ").Append(ReturnType);
             }
 
-            sb.Append(";");
+            sb.Append(";\r\n");
 
             return sb.ToString();
         }

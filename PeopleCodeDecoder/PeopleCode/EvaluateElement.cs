@@ -14,8 +14,16 @@ namespace PeopleCodeDecoder.PeopleCode
 
         public override string ToString()
         {
-            //TODO: Implement
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            DoPadding(sb);
+            sb.Append("Evaluate ").Append(Variable).Append("\r\n");
+            foreach(WhenElement w in Cases)
+            {
+                sb.Append(w);
+            }
+            DoPadding(sb);
+            sb.Append("End-Evaluate;\r\n");
+            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
@@ -27,7 +35,7 @@ namespace PeopleCodeDecoder.PeopleCode
             while (Peek(ms) != 61)
             {
                 
-                Variable += Element.GetNextElement(ms, state, 0).ToString();
+                Variable += Element.GetNextElement(ms, state, -1).ToString();
             }
 
 
@@ -36,7 +44,7 @@ namespace PeopleCodeDecoder.PeopleCode
             while (nextByte == 61 || nextByte == 62)
             {
                 WhenElement nextElement = new WhenElement();
-                nextElement.IndentLevel = this.IndentLevel + 1;
+                nextElement.IndentLevel = this.IndentLevel;
                 nextElement.Parse(ms, state);
                 
                 Cases.Add(nextElement);

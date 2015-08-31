@@ -16,8 +16,32 @@ namespace PeopleCodeDecoder.PeopleCode
 
         public override string ToString()
         {
-            //TODO: Implement
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            DoPadding(sb);
+            if (WhenOther)
+            {
+                sb.Append("When-Other\r\n");
+            }
+            else
+            {
+                sb.Append("When ");
+                foreach (Element e in Condition)
+                {
+                    e.IndentLevel = 0;
+                    sb.Append(e);
+                }
+                sb.Replace(";", "");
+            }
+
+            foreach(Element e in Body)
+            {
+                sb.Append(e);
+            }
+            IndentLevel++;
+            DoPadding(sb);
+            sb.Append("Break;\r\n");
+            IndentLevel--;
+            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

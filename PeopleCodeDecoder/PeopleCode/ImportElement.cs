@@ -13,8 +13,11 @@ namespace PeopleCodeDecoder.PeopleCode
 
         public override string ToString()
         {
-            //TODO: Implement
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            DoPadding(sb);
+            sb.Append("import " + Import + ";");
+
+            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

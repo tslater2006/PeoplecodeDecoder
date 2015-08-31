@@ -43,7 +43,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 ms.Seek(-1, SeekOrigin.Current);
                 PureStringElement commentText = new PureStringElement();
                 commentText.Parse(ms, state);
-                this.Value = commentText.Value;
+                this.Value = "/+ " + commentText.Value + " +/";
             } else
             {
                 byte[] bShort = new byte[2];

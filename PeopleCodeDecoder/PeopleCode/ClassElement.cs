@@ -18,8 +18,46 @@ namespace PeopleCodeDecoder.PeopleCode
 
         public override string ToString()
         {
-            //TODO: Implement
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            DoPadding(sb);
+            sb.Append("class ").Append(ClassName);
+            if (Implements.Length > 0)
+            {
+                sb.Append(" ").Append("implements ").Append(Implements).Append("\r\n");
+            }
+
+            foreach(Element e in Public)
+            {
+                sb.Append(e);
+            }
+
+            if (Protected.Count > 0)
+            {
+                sb.Append("protected\r\n");
+                foreach(Element e in Protected)
+                {
+                    sb.Append(e);
+                }
+            }
+
+            if (Private.Count > 0)
+            {
+                sb.Append("private\r\n");
+                foreach (Element e in Private)
+                {
+                    sb.Append(e);
+                }
+            }
+            DoPadding(sb);
+            sb.Append("end-class;");
+
+            foreach(Element e in Body)
+            {
+                sb.Append(e);
+            }
+
+            sb.Append("\r\n");
+            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
@@ -87,7 +125,7 @@ namespace PeopleCodeDecoder.PeopleCode
 
             while (Peek(ms) != 7)
             {
-                Element nextElement = Element.GetNextElement(ms, state, IndentLevel);
+                Element nextElement = Element.GetNextElement(ms, state, IndentLevel - 1);
                 Body.Add(nextElement);
             }
 

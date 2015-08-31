@@ -12,7 +12,7 @@ namespace PeopleCodeDecoder.PeopleCode
         public override string ToString()
         {
             //TODO: Implement
-            throw new NotImplementedException();
+            return base.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
