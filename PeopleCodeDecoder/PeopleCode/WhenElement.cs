@@ -13,7 +13,13 @@ namespace PeopleCodeDecoder.PeopleCode
         bool WhenOther = false;
         List<Element> Condition;
         List<Element> Body = new List<Element>();
-        
+
+        public override string ToString()
+        {
+            //TODO: Implement
+            throw new NotImplementedException();
+        }
+
         public override void Parse(MemoryStream ms, ParseState state)
         {
             var whenType = ms.ReadByte();

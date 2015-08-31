@@ -10,6 +10,13 @@ namespace PeopleCodeDecoder.PeopleCode
     public class ImportElement : Element
     {
         public string Import;
+
+        public override string ToString()
+        {
+            //TODO: Implement
+            throw new NotImplementedException();
+        }
+
         public override void Parse(MemoryStream ms, ParseState state)
         {
             /* eat import byte */

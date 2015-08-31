@@ -12,7 +12,7 @@ namespace PeopleCodeDecoder.PeopleCode
         public String Value;
         public int IndentLevel;
         public abstract void Parse(MemoryStream ms, ParseState state);
-        public abstract override string ToString();
+
         public static byte Peek(MemoryStream ms)
         {
             byte b = (byte)ms.ReadByte();

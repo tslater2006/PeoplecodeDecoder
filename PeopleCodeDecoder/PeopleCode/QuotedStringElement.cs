@@ -9,6 +9,11 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class QuotedStringElement : Element
     {
+        public override string ToString()
+        {
+            //TODO: Implement
+            throw new NotImplementedException();
+        }
 
         public override void Parse(MemoryStream ms, ParseState state)
         {

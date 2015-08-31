@@ -10,6 +10,13 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class NumberElement : Element
     {
+
+        public override string ToString()
+        {
+            //TODO: Implement
+            throw new NotImplementedException();
+        }
+
         public override void Parse(MemoryStream ms, ParseState state)
         {
             int numBytes = 18;

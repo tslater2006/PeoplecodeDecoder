@@ -11,6 +11,13 @@ namespace PeopleCodeDecoder.PeopleCode
     {
         String CatchClause;
         List<Element> Body = new List<Element>();
+
+        public override string ToString()
+        {
+            //TODO: Implement
+            throw new NotImplementedException();
+        }
+
         public override void Parse(MemoryStream ms, ParseState state)
         {
             /* eat the catch byte */

@@ -12,6 +12,12 @@ namespace PeopleCodeDecoder.PeopleCode
         String Variable = "";
         List<WhenElement> Cases = new List<WhenElement>();
 
+        public override string ToString()
+        {
+            //TODO: Implement
+            throw new NotImplementedException();
+        }
+
         public override void Parse(MemoryStream ms, ParseState state)
         {
             /* eat the "Evaluate" byte */
