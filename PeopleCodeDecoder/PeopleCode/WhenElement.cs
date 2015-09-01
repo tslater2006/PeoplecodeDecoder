@@ -46,7 +46,7 @@ namespace PeopleCodeDecoder.PeopleCode
             {
                 e.Write(sb);
             }
-            if (WhenOther == false)
+            if (WhenOther == false || (WhenOther == true && Body.Count == 0))
             {
                 IndentLevel++;
                 DoPadding(sb);

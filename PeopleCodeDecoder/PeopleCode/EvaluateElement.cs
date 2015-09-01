@@ -49,6 +49,11 @@ namespace PeopleCodeDecoder.PeopleCode
                 nextElement.Parse(ms, state);
                 
                 Cases.Add(nextElement);
+                /* extra spaces after "Break;" and next "When" */
+                while (Peek(ms) == 79)
+                {
+                    ms.ReadByte();
+                }
                 nextByte = Peek(ms);
             }
 

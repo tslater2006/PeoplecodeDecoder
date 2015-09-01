@@ -104,6 +104,10 @@ namespace PeopleCodeDecoder.PeopleCode
                     Value = "Break";
                     Spacing = ElementSpacing.NONE;
                     break;
+                case 67:
+                    Value = "Exit";
+                    Spacing = ElementSpacing.AFTER;
+                    break;
                 case 75:
                     Value = "Null";
                     Spacing = ElementSpacing.NONE;

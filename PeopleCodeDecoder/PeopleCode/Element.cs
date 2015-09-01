@@ -69,6 +69,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 21:
                 case 35:
                 case 46:
+                case 67:
                 case 75:
                 case 76:
                 case 77:

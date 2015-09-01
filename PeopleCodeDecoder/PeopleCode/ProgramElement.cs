@@ -30,7 +30,7 @@ namespace PeopleCodeDecoder.PeopleCode
             byte nextByte = Peek(ms);
             while (nextByte != 7)
             {
-                Element nextElement = Element.GetNextElement(ms, state, IndentLevel);
+                Element nextElement = Element.GetNextElement(ms, state, IndentLevel, true);
                 Statements.Add(nextElement);
                 nextByte = Peek(ms);
             }
