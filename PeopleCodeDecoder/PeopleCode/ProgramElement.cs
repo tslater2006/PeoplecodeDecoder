@@ -11,16 +11,13 @@ namespace PeopleCodeDecoder.PeopleCode
     {
         public List<Element> Statements = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
 
             foreach (Element e in Statements)
             {
-                sb.Append(e.ToString());
+                e.Write(sb);
             }
-
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

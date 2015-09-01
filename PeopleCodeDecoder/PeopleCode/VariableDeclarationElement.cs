@@ -13,9 +13,8 @@ namespace PeopleCodeDecoder.PeopleCode
         string VariableType = "";
         List<Element> Declaration = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             switch(declareType)
             {
@@ -41,11 +40,9 @@ namespace PeopleCodeDecoder.PeopleCode
             foreach(Element e in Declaration)
             {
                 e.IndentLevel = 0;
-                sb.Append(e.ToString());
+                e.Write(sb);
             }
-            var result = sb.ToString().TrimEnd(' ') + ";\r\n";
-
-            return result;
+            sb.Append(";\r\n");
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
@@ -74,15 +71,18 @@ namespace PeopleCodeDecoder.PeopleCode
 
             byte nextByte = Peek(ms);
             Element stringElement = new PureStringElement();
+            StringBuilder sb = new StringBuilder();
             if (declareType != DeclareType.CONSTANT)
             {
                 while (nextByte != 1)
                 {
-                    stringElement.Parse(ms, state);
-                    VariableType += stringElement.Value + " ";
+                    var e = Element.GetNextElement(ms, state, -1);
+                    e.Write(sb);
+                    sb.Append(" ");
                     nextByte = Peek(ms);
                 }
-                VariableType = VariableType.Trim();
+
+                VariableType = sb.ToString().Trim();
             }
             while (nextByte != 21) /* semicolon */
             {

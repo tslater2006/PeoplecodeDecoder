@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,12 @@ namespace PeopleCodeDecoder.PeopleCode
     {
         ElementSpacing Spacing;
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
+            if (Value == "=")
+            {
+                //Debugger.Break();
+            }
             if (Spacing == ElementSpacing.BEFORE || Spacing == ElementSpacing.BOTH)
             {
                 sb.Append(" ");
@@ -25,8 +29,6 @@ namespace PeopleCodeDecoder.PeopleCode
             {
                 sb.Append(" ");
             }
-
-            return sb.ToString();
         }
         public override void Parse(MemoryStream ms, ParseState state)
         {

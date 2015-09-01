@@ -15,21 +15,21 @@ namespace PeopleCodeDecoder.PeopleCode
             ms.ReadByte();
 
             Value = "";
-
-            while (Peek(ms) != 21)
+            StringBuilder sb = new StringBuilder();
+            while (Peek(ms) != 21 && Peek(ms) != 26)
             {
                 var elem = Element.GetNextElement(ms, state, -1);
-                Value += elem.ToString();
+                elem.Write(sb);
+                Value += sb.ToString();
+                sb.Length = 0;
             }
 
         }
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             sb.Append("Return ").Append(Value).Append("\r\n");
-            return sb.ToString();
         }
     }
 }

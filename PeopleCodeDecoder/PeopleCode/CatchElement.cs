@@ -12,10 +12,16 @@ namespace PeopleCodeDecoder.PeopleCode
         String CatchClause;
         List<Element> Body = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            //TODO: Implement
-            throw new NotImplementedException();
+            DoPadding(sb);
+            sb.Append("catch ").Append(CatchClause);
+            sb.Append("\r\n");
+            foreach (Element e in Body)
+            {
+                e.Write(sb);
+            }
+            
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
@@ -25,9 +31,15 @@ namespace PeopleCodeDecoder.PeopleCode
             Element nextElement = null;
             state.AlternateBreak = 45;
 
-                nextElement = Element.GetNextElement(ms, state, IndentLevel, true);
+            var exceptionType = Element.GetNextElement(ms, state, -1,false);
+            var variableName = Element.GetNextElement(ms, state, -1, false);
 
-            CatchClause = nextElement.Value.Substring(0, nextElement.Value.Length - 3);
+            StringBuilder sb = new StringBuilder();
+            exceptionType.Write(sb);
+            sb.Append(" ");
+            variableName.Write(sb);
+
+            CatchClause = sb.ToString();
 
             /* eat the newline */
             ms.ReadByte();

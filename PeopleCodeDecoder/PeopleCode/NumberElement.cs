@@ -11,9 +11,9 @@ namespace PeopleCodeDecoder.PeopleCode
     public class NumberElement : Element
     {
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            return base.ToString();
+            sb.Append(base.ToString());
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

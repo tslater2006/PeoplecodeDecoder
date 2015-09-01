@@ -13,9 +13,8 @@ namespace PeopleCodeDecoder.PeopleCode
         List<Element> Body = new List<Element>();
         List<Element> ElseBody;
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             var openParen = 0;
             sb.Append("If ");
@@ -34,7 +33,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 if (e is BooleanLogicElement)
                 {
                     // handle things special for "AND"
-                    sb.Append(e.ToString());
+                    e.Write(sb);
 
                     var type = ((BooleanLogicElement)e).Type;
 
@@ -49,7 +48,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 }
                 else
                 {
-                    sb.Append(e.ToString());
+                    e.Write(sb);
                 }
             }
 
@@ -57,7 +56,7 @@ namespace PeopleCodeDecoder.PeopleCode
 
             foreach (var e in Body)
             {
-                sb.Append(e.ToString());
+                e.Write(sb);
             }
 
             if (ElseBody != null && ElseBody.Count > 0)
@@ -67,12 +66,11 @@ namespace PeopleCodeDecoder.PeopleCode
 
                 foreach(var e in ElseBody)
                 {
-                    sb.Append(e.ToString());
+                    e.Write(sb);
                 }
             }
             DoPadding(sb);
             sb.Append("End-If;\r\n");
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

@@ -12,10 +12,10 @@ namespace PeopleCodeDecoder.PeopleCode
         public string PropertyName;
         List<Element> Body = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
             //TODO: Implement
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

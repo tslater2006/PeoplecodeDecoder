@@ -11,16 +11,23 @@ namespace PeopleCodeDecoder.PeopleCode
     {
         CommentType Type;
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
-            for (var x = 0; x < IndentLevel; x++)
+            if (Type == CommentType.SLASH_STAR_SAME_LINE)
             {
-                sb.Append("   ");
+                /* trim the end of sb */
+                while (Char.IsWhiteSpace(sb[sb.Length -1]))
+                {
+                    sb.Length--;
+                }
+                sb.Append(" ");
+            } else
+            {
+                DoPadding(sb);
             }
-            sb.Append(Value).Append("\r\n");
 
-            return sb.ToString();
+            
+            sb.Append(Value).Append("\r\n");
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
@@ -28,13 +35,20 @@ namespace PeopleCodeDecoder.PeopleCode
             /* eat comment marker */
             byte commentType = (byte) ms.ReadByte();
 
-            if (commentType == 36 || commentType == 78)
+            if (commentType == 36)
             {
                 Type = CommentType.SLASH_STAR;
-            } else if (commentType == 85)
+            }
+            else if (commentType == 78)
+            {
+                //TODO: make a global string writer to use instead of each element making its own string builder
+                Type = CommentType.SLASH_STAR_SAME_LINE;
+            }
+            else if (commentType == 85)
             {
                 Type = CommentType.ANGLE_STAR;
-            } else if (commentType == 109)
+            }
+            else if (commentType == 109)
             {
                 Type = CommentType.SLASH_PLUS;
             }
@@ -66,6 +80,6 @@ namespace PeopleCodeDecoder.PeopleCode
 
     enum CommentType
     {
-        SLASH_STAR, REM, ANGLE_STAR, SLASH_PLUS
+        SLASH_STAR, SLASH_STAR_SAME_LINE, REM, ANGLE_STAR, SLASH_PLUS
     }
 }

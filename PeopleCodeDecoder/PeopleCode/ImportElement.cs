@@ -11,13 +11,11 @@ namespace PeopleCodeDecoder.PeopleCode
     {
         public string Import;
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             sb.Append("import " + Import + ";\r\n");
 
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

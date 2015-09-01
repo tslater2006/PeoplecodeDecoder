@@ -14,9 +14,8 @@ namespace PeopleCodeDecoder.PeopleCode
         List<Element> Condition;
         List<Element> Body = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             if (WhenOther)
             {
@@ -28,20 +27,20 @@ namespace PeopleCodeDecoder.PeopleCode
                 foreach (Element e in Condition)
                 {
                     e.IndentLevel = 0;
-                    sb.Append(e);
+                    e.Write(sb);
                 }
-                sb.Replace(";", "");
+                sb.Length -= 3;
+                sb.Append("\r\n");
             }
 
             foreach(Element e in Body)
             {
-                sb.Append(e);
+                e.Write(sb);
             }
             IndentLevel++;
             DoPadding(sb);
             sb.Append("Break;\r\n");
             IndentLevel--;
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

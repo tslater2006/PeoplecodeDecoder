@@ -13,9 +13,8 @@ namespace PeopleCodeDecoder.PeopleCode
         List<Parameter> Params = new List<Parameter>();
         public List<Element> Body = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
 
             sb.Append("Function ").Append(MethodName);
@@ -37,12 +36,11 @@ namespace PeopleCodeDecoder.PeopleCode
             sb.Append("\r\n");
             foreach (Element e in Body)
             {
-                sb.Append(e.ToString());
+                e.Write(sb);
             }
 
             DoPadding(sb);
             sb.Append("End-Function;");
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

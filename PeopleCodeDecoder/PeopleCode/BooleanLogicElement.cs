@@ -11,9 +11,8 @@ namespace PeopleCodeDecoder.PeopleCode
     {
         public BooleanType Type;
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             switch(Type)
             {
@@ -33,7 +32,6 @@ namespace PeopleCodeDecoder.PeopleCode
                     sb.Append("False");
                     break;
             }
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

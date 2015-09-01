@@ -23,12 +23,10 @@ namespace PeopleCodeDecoder.PeopleCode
 
         }
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             sb.Append("throw ").Append(Value);
-            return sb.ToString();
         }
     }
 }

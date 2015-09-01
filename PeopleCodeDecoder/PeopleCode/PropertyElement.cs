@@ -14,10 +14,10 @@ namespace PeopleCodeDecoder.PeopleCode
         private bool HasGet;
         private bool HasSet;
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
             //TODO: Implement
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

@@ -9,13 +9,10 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class PureStringElement : Element
     {
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             sb.Append(Value);
-
-            return sb.ToString();
         }
         public override void Parse(MemoryStream ms, ParseState state)
         {

@@ -19,16 +19,15 @@ namespace PeopleCodeDecoder.PeopleCode
         private static string[] refKeywords = new string[] {"Component","Panel","RecName", "Scroll", "MenuName", "BarName", "ItemName", "CompIntfc",
                 "Image", "Interlink", "StyleSheet", "FileLayout", "Page", "PanelGroup", "Message", "BusProcess", "BusEvent", "BusActivity",
                 "Field", "Record"};
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
             if (referenceType == 33)
             {
-                return RecordName + "." + ReferenceName;
+                sb.Append(RecordName + "." + ReferenceName);
             } else if (referenceType == 74)
             {
-                return ReferenceName;
+                sb.Append(ReferenceName);
             }
-            return base.ToString();
         }
         public override void Parse(MemoryStream ms, ParseState state)
         {

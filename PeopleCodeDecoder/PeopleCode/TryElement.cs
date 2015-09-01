@@ -12,11 +12,24 @@ namespace PeopleCodeDecoder.PeopleCode
         List<Element> Body = new List<Element>();
         List<CatchElement> Catches = new List<CatchElement>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
             //TODO: Implement
             //throw new NotImplementedException();
-            return "TRY";
+            DoPadding(sb);
+            sb.Append("try\r\n");
+
+            foreach(Element e in Body)
+            {
+                e.Write(sb);
+            }
+            
+            foreach(CatchElement c in Catches)
+            {
+                c.Write(sb);
+            }
+            DoPadding(sb);
+            sb.Append("end-try;\r\n");
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
@@ -33,6 +46,7 @@ namespace PeopleCodeDecoder.PeopleCode
             while (Peek(ms) != 103)
             {
                 CatchElement catchElem = new CatchElement();
+                catchElem.IndentLevel = IndentLevel;
                 catchElem.Parse(ms, state);
                 Catches.Add(catchElem);
             }

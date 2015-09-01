@@ -15,9 +15,8 @@ namespace PeopleCodeDecoder.PeopleCode
         List<Element> Step = new List<Element>();
         List<Element> Body = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
 
             sb.Append("For ");
@@ -25,7 +24,7 @@ namespace PeopleCodeDecoder.PeopleCode
             foreach(var e in Predicate)
             {
                 e.IndentLevel = 0;
-                sb.Append(e.ToString());
+                e.Write(sb);
             }
 
             sb.Append(" To ");
@@ -33,7 +32,7 @@ namespace PeopleCodeDecoder.PeopleCode
             foreach (var e in To)
             {
                 e.IndentLevel = 0;
-                sb.Append(e.ToString());
+                e.Write(sb);
             }
 
             if (Step.Count > 0 )
@@ -43,19 +42,18 @@ namespace PeopleCodeDecoder.PeopleCode
                 foreach (var e in Step)
                 {
                     e.IndentLevel = 0;
-                    sb.Append(e.ToString());
+                    e.Write(sb);
                 }
             }
             sb.Append("\r\n");
 
             foreach(var e in Body)
             {
-                sb.Append(e);
+                e.Write(sb);
             }
             DoPadding(sb);
             sb.Append("End-For;\r\n");
 
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

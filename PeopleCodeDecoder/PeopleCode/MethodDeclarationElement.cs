@@ -69,9 +69,8 @@ namespace PeopleCodeDecoder.PeopleCode
             ms.ReadByte();
         }
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             sb.Append("method ").Append(MethodName).Append("(");
             foreach( var m in Params)
@@ -91,7 +90,6 @@ namespace PeopleCodeDecoder.PeopleCode
 
             sb.Append(";\r\n");
 
-            return sb.ToString();
         }
     }
 

@@ -9,17 +9,17 @@ namespace PeopleCodeDecoder.PeopleCode
 {
     public class QuotedStringElement : Element
     {
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
             //TODO: Implement
-            return base.ToString();
+            sb.Append(base.ToString());
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
         {
             Element stringElement = new PureStringElement();
             stringElement.Parse(ms, state);
-            Value = "\"" + stringElement.Value + "\"";
+            Value = "\"" + stringElement.Value.Replace("\"","\"\"") + "\"";
         }
     }
 }

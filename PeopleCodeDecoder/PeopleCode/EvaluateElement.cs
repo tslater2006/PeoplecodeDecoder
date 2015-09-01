@@ -12,30 +12,31 @@ namespace PeopleCodeDecoder.PeopleCode
         String Variable = "";
         List<WhenElement> Cases = new List<WhenElement>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
+            
             DoPadding(sb);
             sb.Append("Evaluate ").Append(Variable).Append("\r\n");
             foreach(WhenElement w in Cases)
             {
-                sb.Append(w);
+                w.Write(sb);
             }
             DoPadding(sb);
             sb.Append("End-Evaluate;\r\n");
-            return sb.ToString();
+            
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
         {
             /* eat the "Evaluate" byte */
             ms.ReadByte();
-            
 
+            StringBuilder sb = new StringBuilder();
             while (Peek(ms) != 61)
             {
-                
-                Variable += Element.GetNextElement(ms, state, -1).ToString();
+                Element.GetNextElement(ms, state, -1).Write(sb);
+                Variable += sb.ToString();
+                sb.Length = 0;
             }
 
 

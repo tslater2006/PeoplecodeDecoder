@@ -12,6 +12,7 @@ namespace PeopleCodeDecoder.PeopleCode
         public String Value;
         public int IndentLevel;
         public abstract void Parse(MemoryStream ms, ParseState state);
+        public abstract void Write(StringBuilder sb);
 
         public static byte Peek(MemoryStream ms)
         {
@@ -178,13 +179,14 @@ namespace PeopleCodeDecoder.PeopleCode
             nextElement.IndentLevel = indentationLevel + 1;
             nextElement.Parse(ms, state);
 
-            {
+            if (isPrimitive && collapsePrimitives) {
                 StringBuilder sb = new StringBuilder();
-                sb.Append(nextElement.ToString());
+                nextElement.Write(sb);
                 /* we found a "primitive" (non-control struct), lets collapse until we see a semicolon */
                 var tempElement = GetNextElement(ms, state, indentationLevel, false);
+                while (tempElement != null && (tempElement.Value == null || tempElement.Value.Equals(";") == false || tempElement is NewLineElement))
                 {
-                    sb.Append(tempElement.ToString());
+                    tempElement.Write(sb);
                     if (Peek(ms) == state.AlternateBreak)
                     {
                         break;

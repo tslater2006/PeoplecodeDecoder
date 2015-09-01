@@ -16,9 +16,8 @@ namespace PeopleCodeDecoder.PeopleCode
         List<Element> Protected = new List<Element>();
         List<Element> Body = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             sb.Append("class ").Append(ClassName);
             if (Implements.Length > 0)
@@ -31,7 +30,7 @@ namespace PeopleCodeDecoder.PeopleCode
 
             foreach(Element e in Public)
             {
-                sb.Append(e);
+                e.Write(sb);
             }
 
             if (Protected.Count > 0)
@@ -39,7 +38,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 sb.Append("protected\r\n");
                 foreach(Element e in Protected)
                 {
-                    sb.Append(e);
+                    e.Write(sb);
                 }
             }
 
@@ -48,7 +47,7 @@ namespace PeopleCodeDecoder.PeopleCode
                 sb.Append("private\r\n");
                 foreach (Element e in Private)
                 {
-                    sb.Append(e);
+                    e.Write(sb);
                 }
             }
             DoPadding(sb);
@@ -56,11 +55,10 @@ namespace PeopleCodeDecoder.PeopleCode
 
             foreach(Element e in Body)
             {
-                sb.Append(e);
+                e.Write(sb);
             }
 
             sb.Append("\r\n");
-            return sb.ToString();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

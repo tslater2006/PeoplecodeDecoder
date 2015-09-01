@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,27 +13,27 @@ namespace PeopleCodeDecoder.PeopleCode
         public String MethodName;
         List<Element> Body = new List<Element>();
 
-        public override string ToString()
+        public override void Write(StringBuilder sb)
         {
-            //TODO: Implement
-            StringBuilder sb = new StringBuilder();
             DoPadding(sb);
             sb.Append("method ").Append(MethodName.Trim()).Append("\r\n");
 
             foreach (Element e in Body)
             {
-                sb.Append(e);
+                if (e is ReturnElement)
+                {
+                    Debugger.Break();
+                }
+                e.Write(sb);
             }
 
             DoPadding(sb);
             sb.Append("end-method;");
-
-            return sb.ToString();
-            throw new NotImplementedException();
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
         {
+            
             /* eat the method byte */
             ms.ReadByte();
 
@@ -43,9 +44,10 @@ namespace PeopleCodeDecoder.PeopleCode
             stringElement.Parse(ms, state);
             MethodName = stringElement.Value;
 
+
             /* eat new line */
             Element.GetNextElement(ms, state, IndentLevel, false);
-
+            
             while (Peek(ms) != 100)
             {
                 state.AlternateBreak = 100;
