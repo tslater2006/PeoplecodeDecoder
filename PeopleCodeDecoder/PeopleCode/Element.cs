@@ -121,6 +121,9 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 60:
                     nextElement = new EvaluateElement();
                     break;
+                case 64:
+                    nextElement = new PureStringElement();
+                    break;
                 case 66:
                     nextElement = new PureStringElement();
                     ms.ReadByte();
@@ -166,19 +169,20 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 101:
                     nextElement = new TryElement();
                     break;
+                case 104:
+                    nextElement = new ThrowElement();
+                    break;
                 default:
                     return null;
             }
             nextElement.IndentLevel = indentationLevel + 1;
             nextElement.Parse(ms, state);
 
-            if (isPrimitive && collapsePrimitives)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append(nextElement.ToString());
                 /* we found a "primitive" (non-control struct), lets collapse until we see a semicolon */
                 var tempElement = GetNextElement(ms, state, indentationLevel, false);
-                while (tempElement.Value == null || tempElement.Value.Equals(";") == false || tempElement is NewLineElement)
                 {
                     sb.Append(tempElement.ToString());
                     if (Peek(ms) == state.AlternateBreak)

@@ -17,10 +17,19 @@ namespace PeopleCodeDecoder.PeopleCode
         {
             StringBuilder sb = new StringBuilder();
             DoPadding(sb);
-
+            var openParen = 0;
             sb.Append("If ");
             foreach (var e in Condition)
             {
+                if (e.ToString() == "(")
+                {
+                    openParen++;
+                }
+
+                if (e.ToString() == ")")
+                {
+                    openParen--;
+                }
                 e.IndentLevel = 0;
                 if (e is BooleanLogicElement)
                 {
@@ -32,9 +41,9 @@ namespace PeopleCodeDecoder.PeopleCode
                     if (type == BooleanType.AND || type == BooleanType.OR)
                     {
                         sb.Append("\r\n");
-                        IndentLevel += 2;
+                        IndentLevel += (2 + openParen);
                         DoPadding(sb);
-                        IndentLevel -= 2;
+                        IndentLevel -= (2 + openParen);
                     }
 
                 }

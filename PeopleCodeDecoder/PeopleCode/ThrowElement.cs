@@ -7,20 +7,19 @@ using System.Threading.Tasks;
 
 namespace PeopleCodeDecoder.PeopleCode
 {
-    public class ReturnElement : Element
+    public class ThrowElement : Element
     {
         public override void Parse(MemoryStream ms, ParseState state)
         {
-            /* eat the return byte */
+            /* eat the throw byte */
             ms.ReadByte();
 
             Value = "";
-
-            while (Peek(ms) != 21)
-            {
-                var elem = Element.GetNextElement(ms, state, -1);
+            //while (Peek(ms) != 21 && Peek(ms) != state.AlternateBreak)
+            //{
+                var elem = Element.GetNextElement(ms, state, -1,true);
                 Value += elem.ToString();
-            }
+            //}
 
         }
 
@@ -28,7 +27,7 @@ namespace PeopleCodeDecoder.PeopleCode
         {
             StringBuilder sb = new StringBuilder();
             DoPadding(sb);
-            sb.Append("Return ").Append(Value).Append("\r\n");
+            sb.Append("throw ").Append(Value);
             return sb.ToString();
         }
     }

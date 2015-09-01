@@ -15,7 +15,8 @@ namespace PeopleCodeDecoder.PeopleCode
         public override string ToString()
         {
             //TODO: Implement
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return "TRY";
         }
 
         public override void Parse(MemoryStream ms, ParseState state)

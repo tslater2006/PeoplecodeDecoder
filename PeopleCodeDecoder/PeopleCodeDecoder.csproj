@@ -66,6 +66,7 @@
     <Compile Include="PeopleCode\ReferenceElement.cs" />
     <Compile Include="PeopleCode\ReturnElement.cs" />
     <Compile Include="PeopleCode\SetterElement.cs" />
+    <Compile Include="PeopleCode\ThrowElement.cs" />
     <Compile Include="PeopleCode\TryElement.cs" />
     <Compile Include="PeopleCode\VariableDeclarationElement.cs" />
     <Compile Include="PeopleCode\MethodDeclarationElement.cs" />

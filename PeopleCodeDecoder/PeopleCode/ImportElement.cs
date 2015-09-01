@@ -15,7 +15,7 @@ namespace PeopleCodeDecoder.PeopleCode
         {
             StringBuilder sb = new StringBuilder();
             DoPadding(sb);
-            sb.Append("import " + Import + ";");
+            sb.Append("import " + Import + ";\r\n");
 
             return sb.ToString();
         }

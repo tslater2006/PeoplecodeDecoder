@@ -24,6 +24,9 @@ namespace PeopleCodeDecoder.PeopleCode
             if (Implements.Length > 0)
             {
                 sb.Append(" ").Append("implements ").Append(Implements).Append("\r\n");
+            } else
+            {
+                sb.Append("\r\n");
             }
 
             foreach(Element e in Public)
