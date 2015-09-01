@@ -42,25 +42,26 @@ Once both of these items are available, you can invoke the library like this:
 ```c#
 ProgramElement p = Parser.ParsePPC("path\to\binary.pcode", "path\to\references.json");
 ```
-To get the textual representation simply call .ToString() on the ProgramElement that is returned.
+To get the textual representation simply call .Write() on the ProgramElement that is returned and pass it in a StringBuilder with which it should build out the text.
 
-#Parse Options
-There are a variety of parsing options that you can opt into using
+#Expectations
+PeopleCodeDecoder aims to provide a decoding library that produces the textual representation in a synactically identical manner. What this means is that the decoded version of the peoplecode should execute exactly as the original, although it may not be character for character exact. Some differences may include stray semicolons. For example
 
-```c#
-            ParseOptions opts = new ParseOptions();
-            opts.AlphabetizeMethodDeclarations = true;
-            opts.MatchMethodDeclarationOrder = true;
-            opts.PairGetSets = true;
+```
+If &variable = "Y" Then;
+   DoSomething();
+End-If;
 ```
 
-ParseOptions can be passed as the 3rd parameter to Parser.ParsePPC().
+The semicolon at the end of the "then" is not actually needed, and therefore the results of decoding will omit that semicolon.
 
-##AlphabetizeMethodDeclarations
-This option will cause the method declarations inside class/end-class; to be alphabetized. Sorting takes place in the public/protected/private sections seperately.
+Another example is a double semicolon
 
-##MatchMethodDeclarationOrder
-This option will cause the implementations of methods to come in the same order they are declared. This is especially useful if you have AlphabetizeMethodDeclartions enabled as well.
+```
+&myVariable = "123";;
+```
 
-##PairGetSets
-This option will cause all get/set pairs to be put together. This setting will emit all get/set pairs, then any leftover gets and finally any leftover sets.
+The extra semicolon while perfectly valid serves no purpose and will be omitted from the output of the decoder.
+
+
+
