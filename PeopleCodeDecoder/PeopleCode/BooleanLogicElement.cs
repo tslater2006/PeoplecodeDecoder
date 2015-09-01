@@ -20,7 +20,13 @@ namespace PeopleCodeDecoder.PeopleCode
                     sb.Append(" And");
                     break;
                 case BooleanType.NOT:
-                    sb.Append("Not ");
+                    if (sb[sb.Length -1] == ' ')
+                    {
+                        sb.Append("Not ");
+                    } else
+                    {
+                        sb.Append(" Not ");
+                    }
                     break;
                 case BooleanType.OR:
                     sb.Append(" Or");

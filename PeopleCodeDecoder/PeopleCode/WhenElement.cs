@@ -29,7 +29,16 @@ namespace PeopleCodeDecoder.PeopleCode
                     e.IndentLevel = 0;
                     e.Write(sb);
                 }
-                sb.Length -= 3;
+
+                while (Char.IsWhiteSpace(sb[sb.Length -1]))
+                {
+                    sb.Length--;
+                }
+                if (sb[sb.Length-1] == ';')
+                {
+                    sb.Length--;
+                }
+                
                 sb.Append("\r\n");
             }
 
@@ -37,10 +46,13 @@ namespace PeopleCodeDecoder.PeopleCode
             {
                 e.Write(sb);
             }
-            IndentLevel++;
-            DoPadding(sb);
-            sb.Append("Break;\r\n");
-            IndentLevel--;
+            if (WhenOther == false)
+            {
+                IndentLevel++;
+                DoPadding(sb);
+                sb.Append("Break;\r\n");
+                IndentLevel--;
+            }
         }
 
         public override void Parse(MemoryStream ms, ParseState state)
@@ -70,6 +82,10 @@ namespace PeopleCodeDecoder.PeopleCode
                     Element nextElement = Element.GetNextElement(ms, state, IndentLevel,true);
                     Body.Add(nextElement);
                     nextByte = Peek(ms);
+                    if (Peek(ms) == 21)
+                    {
+                        ms.ReadByte();
+                    }
                 }
 
                 /* eat the break */
@@ -83,18 +99,21 @@ namespace PeopleCodeDecoder.PeopleCode
 
                 /* eat the when-other */
 
-                while (Peek(ms) != 46)
+                while (Peek(ms) != 46 && Peek(ms) != 63)
                 {
                     state.AlternateBreak = 46;
                     Element nextElement = Element.GetNextElement(ms, state, IndentLevel, true);
                     Body.Add(nextElement);
                 }
+                if (Peek(ms) == 46)
+                {
+                    /* eat the break */
+                    ms.ReadByte();
 
-                /* eat the break */
-                ms.ReadByte();
-
-                /* eat the semicolon */
-                ms.ReadByte();
+                    /* eat the semicolon */
+                    ms.ReadByte();
+                }
+                
             }
         }
     }

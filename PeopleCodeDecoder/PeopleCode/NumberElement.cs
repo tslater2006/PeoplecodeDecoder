@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -13,6 +14,12 @@ namespace PeopleCodeDecoder.PeopleCode
 
         public override void Write(StringBuilder sb)
         {
+            /*if (sb.Length > 2 && sb[sb.Length - 2] == '-')
+            {
+                //Debugger.Break();
+                sb.Length -= 3;
+                sb.Append("- ");
+            }*/
             sb.Append(base.ToString());
         }
 

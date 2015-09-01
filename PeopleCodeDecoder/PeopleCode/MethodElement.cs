@@ -20,10 +20,6 @@ namespace PeopleCodeDecoder.PeopleCode
 
             foreach (Element e in Body)
             {
-                if (e is ReturnElement)
-                {
-                    Debugger.Break();
-                }
                 e.Write(sb);
             }
 
@@ -44,6 +40,10 @@ namespace PeopleCodeDecoder.PeopleCode
             stringElement.Parse(ms, state);
             MethodName = stringElement.Value;
 
+            if (MethodName == "createObject")
+            {
+                //Debugger.Break();
+            }
 
             /* eat new line */
             Element.GetNextElement(ms, state, IndentLevel, false);
@@ -53,6 +53,10 @@ namespace PeopleCodeDecoder.PeopleCode
                 state.AlternateBreak = 100;
                 Element nextElement = Element.GetNextElement(ms, state, IndentLevel,true);
                 Body.Add(nextElement);
+                if (Peek(ms) == 21)
+                {
+                    ms.ReadByte();
+                }
             }
 
             /* eat the end method */

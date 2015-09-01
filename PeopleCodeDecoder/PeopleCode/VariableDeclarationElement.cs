@@ -77,8 +77,18 @@ namespace PeopleCodeDecoder.PeopleCode
                 while (nextByte != 1)
                 {
                     var e = Element.GetNextElement(ms, state, -1);
+
+                    if (e.Value == ":" && sb[sb.Length - 1] == ' ')
+                    {
+                        sb.Length--;
+                    }
+
                     e.Write(sb);
-                    sb.Append(" ");
+                    if (e.Value != ":" && sb[sb.Length-1] != ':')
+                    {
+                        sb.Append(" ");
+                    }
+
                     nextByte = Peek(ms);
                 }
 

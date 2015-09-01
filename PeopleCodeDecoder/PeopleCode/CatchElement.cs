@@ -31,11 +31,22 @@ namespace PeopleCodeDecoder.PeopleCode
             Element nextElement = null;
             state.AlternateBreak = 45;
 
+            StringBuilder sb1 = new StringBuilder();
+
             var exceptionType = Element.GetNextElement(ms, state, -1,false);
+
+            exceptionType.Write(sb1);
+            while (Peek(ms) == 87)
+            {
+                exceptionType = Element.GetNextElement(ms, state, -1, false);
+                exceptionType.Write(sb1);
+                exceptionType = Element.GetNextElement(ms, state, -1, false);
+                exceptionType.Write(sb1);
+            }
             var variableName = Element.GetNextElement(ms, state, -1, false);
 
             StringBuilder sb = new StringBuilder();
-            exceptionType.Write(sb);
+            sb.Append(sb1.ToString());
             sb.Append(" ");
             variableName.Write(sb);
 

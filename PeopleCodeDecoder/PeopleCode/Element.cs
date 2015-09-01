@@ -45,6 +45,7 @@ namespace PeopleCodeDecoder.PeopleCode
 
             switch (nextByte)
             {
+                case 0:
                 case 1:
                 case 10:
                 case 18:
@@ -112,6 +113,9 @@ namespace PeopleCodeDecoder.PeopleCode
                 case 79:
                     nextElement = new NewLineElement();
                     break;
+                case 49:
+                    nextElement = new DeclareFunctionElement();
+                    break;
                 case 50:
                     nextElement = new FunctionElement();
                     break;
@@ -143,6 +147,9 @@ namespace PeopleCodeDecoder.PeopleCode
                     break;
                 case 88:
                     nextElement = new ImportElement();
+                    break;
+                case 89:
+                    nextElement = new OperatorElement();
                     break;
                 case 90:
                     nextElement = new ClassElement();
@@ -179,7 +186,7 @@ namespace PeopleCodeDecoder.PeopleCode
             nextElement.IndentLevel = indentationLevel + 1;
             nextElement.Parse(ms, state);
 
-            if (isPrimitive && collapsePrimitives) {
+            if (isPrimitive && collapsePrimitives && Peek(ms) != state.AlternateBreak) {
                 StringBuilder sb = new StringBuilder();
                 nextElement.Write(sb);
                 /* we found a "primitive" (non-control struct), lets collapse until we see a semicolon */
@@ -201,7 +208,6 @@ namespace PeopleCodeDecoder.PeopleCode
                 nextElement.IndentLevel = indentationLevel + 1;
                 nextElement.Value = finalLine;
             }
-
             return nextElement;
         }
 

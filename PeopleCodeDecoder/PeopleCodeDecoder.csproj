@@ -55,6 +55,7 @@
     <Compile Include="PeopleCode\BooleanLogicElement.cs" />
     <Compile Include="PeopleCode\CatchElement.cs" />
     <Compile Include="PeopleCode\ClassElement.cs" />
+    <Compile Include="PeopleCode\DeclareFunctionElement.cs" />
     <Compile Include="PeopleCode\EvaluateElement.cs" />
     <Compile Include="PeopleCode\ForElement.cs" />
     <Compile Include="PeopleCode\FunctionElement.cs" />

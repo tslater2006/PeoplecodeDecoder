@@ -94,6 +94,11 @@ namespace PeopleCodeDecoder.PeopleCode
             /* eat the "then" */
             ms.ReadByte();
 
+            if (Peek(ms) == 21) /* semicolon */
+            {
+                ms.ReadByte();
+            }
+
             nextByte = Peek(ms);
 
             while (nextByte != 25 && nextByte != 26) /* not an "else" or an "end-if" */
@@ -101,6 +106,10 @@ namespace PeopleCodeDecoder.PeopleCode
                 Element nextElement = Element.GetNextElement(ms, state, IndentLevel,true);
                 Body.Add(nextElement);
                 nextByte = Peek(ms);
+                if (Peek(ms) == 21)
+                {
+                    ms.ReadByte();
+                }
             }
 
             if (nextByte == 25)
@@ -113,7 +122,12 @@ namespace PeopleCodeDecoder.PeopleCode
                     Element nextElement = Element.GetNextElement(ms, state, IndentLevel,true);
                     ElseBody.Add(nextElement);
                     nextByte = Peek(ms);
+                    if (Peek(ms) == 21)
+                    {
+                        ms.ReadByte();
+                    }
                 }
+
             }
 
             /* eat the end-if */

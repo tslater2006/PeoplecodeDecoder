@@ -78,20 +78,37 @@ namespace PeopleCodeDecoder.PeopleCode
                 nextByte = Peek(ms);
             }
 
+            
+
+            if (Peek(ms) == 21) /*semicolon */
+            {
+                ms.ReadByte();
+            }
+
             if (nextByte == 43)
             {
                 // there's a "Step";
-
+                ms.ReadByte();
                 while (nextByte != 45)
                 {
                     Step.Add(Element.GetNextElement(ms, state, IndentLevel));
                     nextByte = Peek(ms);
                 }
             }
-
+            if (Peek(ms) == 21) /*semicolon */
+            {
+                ms.ReadByte();
+            }
             /* eat the newline */
             nextByte = (byte)ms.ReadByte();
             nextByte = Peek(ms);
+
+            if (nextByte == 21) /*semicolon */
+            {
+                nextByte = (byte)ms.ReadByte();
+                nextByte = Peek(ms);
+            }
+
             state.AlternateBreak = 44;
             while (nextByte != 44) /* end-for */
             {

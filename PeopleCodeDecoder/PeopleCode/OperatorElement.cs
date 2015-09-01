@@ -15,9 +15,9 @@ namespace PeopleCodeDecoder.PeopleCode
 
         public override void Write(StringBuilder sb)
         {
-            if (Value == "=")
+            if (Value == ";" && sb.Length == 0)
             {
-                //Debugger.Break();
+                return;
             }
             if (Spacing == ElementSpacing.BEFORE || Spacing == ElementSpacing.BOTH)
             {
@@ -118,6 +118,10 @@ namespace PeopleCodeDecoder.PeopleCode
                     break;
                 case 87:
                     Value = ":";
+                    Spacing = ElementSpacing.NONE;
+                    break;
+                case 89:
+                    Value = "*";
                     Spacing = ElementSpacing.NONE;
                     break;
                 case 105:

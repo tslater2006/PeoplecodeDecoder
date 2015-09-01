@@ -16,7 +16,7 @@ namespace PeopleCodeDecoder.PeopleCode
 
             Value = "";
             StringBuilder sb = new StringBuilder();
-            while (Peek(ms) != 21 && Peek(ms) != 26)
+            while (Peek(ms) != 21 && Peek(ms) != 26 && Peek(ms) != 25 && Peek(ms) != 100)
             {
                 var elem = Element.GetNextElement(ms, state, -1);
                 elem.Write(sb);
